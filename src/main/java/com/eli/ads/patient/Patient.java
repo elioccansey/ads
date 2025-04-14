@@ -2,6 +2,7 @@ package com.eli.ads.patient;
 
 import com.eli.ads.appointment.Appointment;
 import com.eli.ads.common.Address;
+import com.eli.ads.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -36,4 +37,7 @@ public class Patient {
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Appointment> appointments;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 }

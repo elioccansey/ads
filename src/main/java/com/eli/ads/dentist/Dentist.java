@@ -1,9 +1,7 @@
 package com.eli.ads.dentist;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.eli.ads.user.User;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -27,4 +25,6 @@ public class Dentist {
     private String email;
     @NotBlank(message = "Specialization is required.")
     private String specialization;
+    @OneToOne(fetch = FetchType.LAZY)
+    private User user;
 }
