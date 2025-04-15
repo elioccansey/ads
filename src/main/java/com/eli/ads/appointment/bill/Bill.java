@@ -1,5 +1,6 @@
-package com.eli.ads.appointment;
+package com.eli.ads.appointment.bill;
 
+import com.eli.ads.appointment.Appointment;
 import com.eli.ads.patient.Patient;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,6 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
+@Table(name = "bills")
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

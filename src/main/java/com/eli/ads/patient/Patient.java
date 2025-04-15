@@ -14,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name = "patients")
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +39,6 @@ public class Patient {
     @OneToMany(fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private User user;
 }

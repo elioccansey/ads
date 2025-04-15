@@ -1,5 +1,6 @@
 package com.eli.ads.appointment;
 
+import com.eli.ads.appointment.bill.Bill;
 import com.eli.ads.appointment.surgery.Surgery;
 import com.eli.ads.dentist.Dentist;
 import com.eli.ads.patient.Patient;
@@ -11,6 +12,7 @@ import java.time.LocalTime;
 
 @Entity
 @Data
+@Table(name = "appointments")
 public class Appointment {
 
     @Id
