@@ -1,19 +1,21 @@
 package com.eli.ads.patient;
 
 import com.eli.ads.appointment.Appointment;
-import com.eli.ads.common.Address;
+import com.eli.ads.common.address.Address;
 import com.eli.ads.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+@Getter @Setter
 @Table(name = "patients")
 public class Patient {
     @Id
@@ -34,9 +36,10 @@ public class Patient {
     private LocalDate dateOfBirth;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Valid @NotNull
     private Address address;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "patient")
     private List<Appointment> appointments;
 
     @OneToOne(fetch = FetchType.EAGER)

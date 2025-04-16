@@ -25,7 +25,7 @@ public class Appointment {
     @Column(nullable = false)
     private LocalTime appointmentTime;
 
-    @ManyToOne
+    @ManyToOne()
     private Patient patient;
 
     @ManyToOne

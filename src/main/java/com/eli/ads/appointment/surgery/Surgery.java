@@ -1,6 +1,6 @@
 package com.eli.ads.appointment.surgery;
 
-import com.eli.ads.common.Address;
+import com.eli.ads.common.address.Address;
 import jakarta.persistence.*;
 import lombok.Data;
 

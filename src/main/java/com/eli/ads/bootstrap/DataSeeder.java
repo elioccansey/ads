@@ -4,7 +4,7 @@ import com.eli.ads.appointment.Appointment;
 import com.eli.ads.appointment.AppointmentService;
 import com.eli.ads.appointment.surgery.Surgery;
 import com.eli.ads.appointment.surgery.SurgeryService;
-import com.eli.ads.common.Address;
+import com.eli.ads.common.address.Address;
 import com.eli.ads.dentist.Dentist;
 import com.eli.ads.dentist.DentistService;
 import com.eli.ads.patient.Patient;
@@ -21,11 +21,8 @@ import java.time.LocalTime;
 public class DataSeeder implements CommandLineRunner {
 
     private final DentistService dentistService;
-
     private final PatientService patientService;
-
     private final SurgeryService surgeryService;
-
     private final AppointmentService appointmentService;
 
     @Override
@@ -40,7 +37,7 @@ public class DataSeeder implements CommandLineRunner {
         Dentist helen = dentistService.createDentist(createDentist("Helen", "Pearson", "helen.pearson@email.com", "Pediatric", "555-1002"));
         Dentist robin = dentistService.createDentist(createDentist("Robin", "Plevin", "robin.plevin@email.com", "Endodontist", "555-1003"));
 
-        // Create patients
+        // Create patients with addresses and set bidirectional relationship
         Patient gillian = patientService.createPatient(createPatient("P100", "Gillian", "White", "gillian.white@email.com", "555-2001", LocalDate.of(1990, 3, 15)));
         Patient jill = patientService.createPatient(createPatient("P105", "Jill", "Bell", "jill.bell@email.com", "555-2002", LocalDate.of(1985, 6, 20)));
         Patient ian = patientService.createPatient(createPatient("P108", "Ian", "MacKay", "ian.mackay@email.com", "555-2003", LocalDate.of(1982, 1, 10)));
@@ -73,10 +70,16 @@ public class DataSeeder implements CommandLineRunner {
         p.setEmail(email);
         p.setPhoneNumber(phone);
         p.setDateOfBirth(dob);
-        p.setAddress(createAddress("123 Main St", "Springfield", "OH", "45505"));
+
+        // Create an address
+        Address address = createAddress("123 Main St", "Springfield", "OH", "45505");
+
+        // Set bidirectional relationship
+        address.setPatient(p);  // Set the address's patient (back reference)
+        p.setAddress(address);   // Set the patient's address
+
         return p;
     }
-
 
     private Surgery createSurgery(String name, String street, String city, String state, String zip, String phone) {
         Surgery s = new Surgery();

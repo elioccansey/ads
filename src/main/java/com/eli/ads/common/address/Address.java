@@ -1,5 +1,6 @@
-package com.eli.ads.common;
+package com.eli.ads.common.address;
 
+import com.eli.ads.patient.Patient;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,10 @@ public class Address {
     private String state;
     @Column(name = "zip_code", nullable = false)
     private String zipCode;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "address")
+    private Patient patient;
+
+
 
 }
