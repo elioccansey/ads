@@ -1,5 +1,8 @@
-package com.eli.ads.patient;
+package com.eli.ads.patient.service;
 
+import com.eli.ads.patient.Patient;
+import com.eli.ads.patient.PatientMapper;
+import com.eli.ads.patient.PatientRepository;
 import com.eli.ads.patient.dto.PatientRequest;
 import com.eli.ads.patient.dto.PatientResponse;
 import jakarta.persistence.EntityNotFoundException;

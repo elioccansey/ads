@@ -1,4 +1,4 @@
-package com.eli.ads.security;
+package com.eli.ads.user.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

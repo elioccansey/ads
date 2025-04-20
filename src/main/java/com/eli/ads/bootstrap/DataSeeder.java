@@ -8,7 +8,7 @@ import com.eli.ads.common.address.Address;
 import com.eli.ads.dentist.Dentist;
 import com.eli.ads.dentist.DentistService;
 import com.eli.ads.patient.Patient;
-import com.eli.ads.patient.PatientService;
+import com.eli.ads.patient.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

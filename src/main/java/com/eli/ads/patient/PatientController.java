@@ -2,6 +2,7 @@ package com.eli.ads.patient;
 
 import com.eli.ads.patient.dto.PatientRequest;
 import com.eli.ads.patient.dto.PatientResponse;
+import com.eli.ads.patient.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

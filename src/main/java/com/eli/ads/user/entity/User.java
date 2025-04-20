@@ -1,18 +1,20 @@
-package com.eli.ads.user;
+package com.eli.ads.user.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Principal;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "users")
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails, Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,8 +22,8 @@ public class User implements UserDetails, Principal {
     private String username;
     private String password;
 
-    @ManyToMany
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Override
     public String getName() {
@@ -30,7 +32,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(); // Todo GrantedAuthority
+        return role.getAuthorities();
     }
 
     @Override

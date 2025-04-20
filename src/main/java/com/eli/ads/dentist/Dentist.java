@@ -1,6 +1,6 @@
 package com.eli.ads.dentist;
 
-import com.eli.ads.user.User;
+import com.eli.ads.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

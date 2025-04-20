@@ -2,7 +2,7 @@ package com.eli.ads.patient;
 
 import com.eli.ads.appointment.Appointment;
 import com.eli.ads.common.address.Address;
-import com.eli.ads.user.User;
+import com.eli.ads.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
