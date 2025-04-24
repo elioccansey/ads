@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+    branches:
+      - main
+
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ads-backend
@@ -47,18 +50,18 @@ jobs:
             APP_VERSION=${{ env.VERSION }}
             APP_PORT=8080
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ env.VERSION }}
-          name: Release v${{ env.VERSION }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload docker-compose.yml as asset
-        uses: softprops/action-gh-release@v1
-        with:
-          files: docker-compose.yml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Create GitHub Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          tag_name: v${{ env.VERSION }}
+#          name: Release v${{ env.VERSION }}
+#          generate_release_notes: true
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+#
+#      - name: Upload docker-compose.yml as asset
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: docker-compose.yml
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
