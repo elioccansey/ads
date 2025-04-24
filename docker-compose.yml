@@ -18,14 +18,8 @@ services:
     restart: unless-stopped
 
   app:
-    image: ads-backend:1.0.10
+    image: vetchoccans/ads-backend:1.0.10
     container_name: ads_backend
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        APP_VERSION: 1.0.10
-        APP_PORT: 8080
     ports:
       - "8081:8080"
     environment:
