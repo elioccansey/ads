@@ -23,7 +23,14 @@ ADS (Advanced Dental System) Backend is a Spring Boot application that powers th
 ## 🛠️ Local Setup
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/elioccansey/ads-backend.git
    cd ads-backend
+   ```
+2. Run the release script to build, version, and launch the app with Docker:
+   ```bash
+   ./release.sh <version> <port>
+   # Example:
+   ./release.sh 1.0.0 8080
+   ```
+
