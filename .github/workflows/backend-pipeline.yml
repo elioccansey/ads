@@ -78,7 +78,8 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
       - name: Debug - list files
-        run: ls -al
+        run: | 
+          ls -al
 
       - name: Copy docker-compose.yml to EC2
         run: |
