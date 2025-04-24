@@ -1,5 +1,6 @@
 package com.eli.ads.user.auth;
 
+import com.eli.ads.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -7,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
+ class AuthController {
 
-    private final AuthService authService;
+    private final UserService userService;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public AuthenticationResponse register(
              @RequestBody RegistrationRequest registrationRequest
     ){
-        return authService.register(registrationRequest);
+        return userService.register(registrationRequest);
     }
 
     @PostMapping("/authenticate")
@@ -24,7 +25,7 @@ public class AuthController {
     public AuthenticationResponse authenticate(
             @RequestBody AuthenticationRequest authenticationRequest
     ){
-        return authService.authenticate(authenticationRequest);
+        return userService.authenticate(authenticationRequest);
     }
 
 }

@@ -78,7 +78,7 @@
     </dependencies>
 
     <build>
-        <finalName>ads-${appVersion}</finalName>
+        <finalName>ads-backend-${appVersion}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

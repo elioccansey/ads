@@ -1,6 +1,6 @@
 package com.eli.ads.common.address;
 
-import com.eli.ads.patient.Patient;
+import com.eli.ads.user.patient.Patient;
 import jakarta.persistence.*;
 import lombok.Data;
 

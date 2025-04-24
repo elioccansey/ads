@@ -1,9 +1,9 @@
 package com.eli.ads.appointment;
 
-import com.eli.ads.appointment.bill.Bill;
+import com.eli.ads.billing.Bill;
 import com.eli.ads.appointment.surgery.Surgery;
-import com.eli.ads.dentist.Dentist;
-import com.eli.ads.patient.Patient;
+import com.eli.ads.user.dentist.Dentist;
+import com.eli.ads.user.patient.Patient;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,7 +28,8 @@ public class Appointment {
     @ManyToOne()
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(nullable = true)
     private Dentist dentist;
 
     @ManyToOne

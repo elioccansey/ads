@@ -45,4 +45,29 @@ public class GlobalExceptionHandler {
                 .message(exp.getMessage())
                 .build();
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionResponse handle(IllegalArgumentException exp){
+
+        return ExceptionResponse
+                .builder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .errorType(ErrorType.VALIDATION)
+                .message(exp.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionResponse handle(Exception exp){
+
+        return ExceptionResponse
+                .builder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .errorType(ErrorType.VALIDATION)
+                .message("Something went wrong but it's on us. Refresh and retry or contact us")
+                .message(exp.getMessage())
+                .build();
+    }
 }

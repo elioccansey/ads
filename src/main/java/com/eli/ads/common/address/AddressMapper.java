@@ -1,6 +1,6 @@
 package com.eli.ads.common.address;
 
-import com.eli.ads.patient.dto.PatientResponse;
+import com.eli.ads.user.patient.PatientResponse;
 
 public class AddressMapper {
     public AddressResponse toAddressResponse(Address address) {

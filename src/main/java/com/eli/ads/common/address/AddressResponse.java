@@ -1,7 +1,6 @@
 package com.eli.ads.common.address;
 
-import com.eli.ads.patient.dto.PatientResponse;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.eli.ads.user.patient.PatientResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
