@@ -25,7 +25,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
-class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
     private final UserService userService;

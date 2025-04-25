@@ -20,6 +20,8 @@ ADS (Advanced Dental System) Backend is a Spring Boot application that powers th
 - Docker & Docker Compose
 - GitHub Actions
 
+
+
 ## 🛠️ Local Setup
 
 1. Clone the repository:
