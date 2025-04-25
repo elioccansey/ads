@@ -34,3 +34,34 @@ ADS (Advanced Dental System) Backend is a Spring Boot application that powers th
    ./release.sh 1.0.0 8080
    ```
 
+## 📸 Screenshots - API Endpoints
+Below is a snapshot of the organized API endpoints exposed by the ADS backend system:
+
+### 🗺️ Addresses
+- `GET /addresses` - Get all addresses sorted by city
+
+### 📅 Appointments
+- `POST /appointments` - Book an appointment
+- `GET /appointments/dentist/{id}` - Get appointments by dentist ID
+- `GET /appointments/patient/{id}` - Get appointments by patient ID
+- `DELETE /appointments/{id}` - Cancel an appointment
+- `PUT /appointments/{id}` - Reschedule an appointment
+
+### 🔐 Auth
+- `POST /auth/register` - Register a new user
+- `POST /auth/authenticate` - Authenticate user and receive JWT
+
+### 👤 Patients
+- `GET /patients/{id}` - Get patient by ID
+- `POST /patients` - Create a new patient
+- `GET /patients/sorted` - Get patients sorted by last name
+- `GET /patients` - Get all patients
+- `PUT /patients/{id}` - Update patient
+- `DELETE /patients/{id}` - Delete patient
+- `GET /patients/search` - Search patient
+
+### 🦷 Dentists
+- `GET /dentists/{id}` - Get dentist by ID
+- `POST /dentists` - Create a new dentist
+- `PUT /dentists/{id}` - Update dentist
+- `DELETE /dentists/{id}` - Delete dentist

@@ -6,6 +6,8 @@ import com.eli.ads.appointment.surgery.Surgery;
 import com.eli.ads.appointment.surgery.SurgeryRepository;
 import com.eli.ads.appointment.utils.DateUtils;
 import com.eli.ads.billing.BillRepository;
+import com.eli.ads.common.exception.ActionNotAuthorizedException;
+import com.eli.ads.common.exception.ResourceNotFoundException;
 import com.eli.ads.user.dentist.Dentist;
 import com.eli.ads.user.dentist.DentistRepository;
 import com.eli.ads.user.patient.Patient;
@@ -37,16 +39,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         user.checkPermission(PermissionEnum.BOOK_APPOINTMENT);
 
         Patient patient = patientRepository.findById(appointmentRequest.patientId())
-                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
 
         Dentist dentist = dentistRepository.findById(appointmentRequest.dentistId())
-                .orElseThrow(() -> new EntityNotFoundException("Dentist not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Dentist not found"));
 
         Surgery surgery = surgeryRepository.findById(appointmentRequest.surgeryId())
-                .orElseThrow(() -> new EntityNotFoundException("Surgery not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Surgery not found"));
 
         if (hasUnpaidBill(patient)) {
-            throw new RuntimeException("Patient has an unpaid bill, cannot book appointment.");
+            throw new ActionNotAuthorizedException("Patient has an unpaid bill, cannot book appointment.");
         }
 
         var weekStart = DateUtils.getWeekStart(appointmentRequest.appointmentDate());
@@ -56,7 +58,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         );
 
         if (appointmentCount >= 5) {
-            throw new ValidationException("Dentist has already 5 appointments this week.");
+            throw new ActionNotAuthorizedException("Dentist has already 5 appointments this week.");
         }
 
         Appointment appointment = new Appointment();
@@ -75,10 +77,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         user.checkPermission(PermissionEnum.VIEW_APPOINTMENT);
 
         Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
 
         if (!patient.getUser().getId().equals(user.getId())) {
-            throw new AccessDeniedException("You do not have permission to view this patient's appointments.");
+            throw new ActionNotAuthorizedException("You do not have permission to view this patient's appointments.");
         }
 
         return appointmentRepository.findByPatient(patient).stream()
@@ -91,7 +93,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         user.checkPermission(PermissionEnum.VIEW_APPOINTMENT);
 
         Dentist dentist = dentistRepository.findById(dentistId)
-                .orElseThrow(() -> new RuntimeException("Dentist not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Dentist not found"));
 
         if (!dentist.getUser().getId().equals(user.getId())) {
             throw new AccessDeniedException("You do not have permission to view this dentist's appointments.");

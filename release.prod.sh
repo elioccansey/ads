@@ -14,7 +14,8 @@ echo "Backing up and updating docker-compose.yml"
 cp $COMPOSE_FILE $BACKUP_FILE
 
 # Use sed to replace lines
-sed -i "s|image: ads-backend:.*|image: ads-backend:$VERSION|" $COMPOSE_FILE
+sed -i "s|image: vetchoccans/ads-backend:.*|image: vetchoccans/ads-backend:$VERSION|" $COMPOSE_FILE
+#sed -i "s|image: ads-backend:.*|image: ads-backend:$VERSION|" $COMPOSE_FILE
 #sed -i "s|APP_VERSION: .*|APP_VERSION: $VERSION|" $COMPOSE_FILE
 
 echo "Committing version changes and tagging in Git"

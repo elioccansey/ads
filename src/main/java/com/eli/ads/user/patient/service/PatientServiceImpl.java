@@ -1,5 +1,6 @@
 package com.eli.ads.user.patient.service;
 
+import com.eli.ads.common.exception.ResourceNotFoundException;
 import com.eli.ads.user.User;
 import com.eli.ads.user.UserService;
 import com.eli.ads.user.auth.RegistrationRequest;
@@ -11,8 +12,10 @@ import com.eli.ads.user.patient.PatientRequest;
 import com.eli.ads.user.patient.PatientResponse;
 import com.eli.ads.user.permission.PermissionEnum;
 import com.eli.ads.user.role.RoleEnum;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,7 @@ class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientResponse registerPatient(PatientRequest patientRequest, User user) throws AccessDeniedException {
+    public PatientResponse registerPatient(PatientRequest patientRequest, User user) {
         user.checkPermission(PermissionEnum.REGISTER_PATIENT);
         Patient patient = patientMapper.toPatient(patientRequest);
         Long userId = patientRequest.userId();
@@ -56,7 +59,7 @@ class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public List<PatientResponse> displayPatientsSortedByLastName(User user) throws AccessDeniedException {
+    public List<PatientResponse> displayPatientsSortedByLastName(User user) {
         user.checkPermission(PermissionEnum.LIST_PATIENTS);
         return patientRepository.findAll(Sort.by("lastName"))
                 .stream()
@@ -65,13 +68,13 @@ class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientResponse getPatientById(Long patientId, User user) throws AccessDeniedException {
+    public PatientResponse getPatientById(Long patientId, User user) {
         user.checkPermission(PermissionEnum.VIEW_PATIENT);
         return patientMapper.toPatientResponse(findPatientById(patientId));
     }
 
     @Override
-    public PatientResponse updatePatient(Long id, PatientRequest patientRequest, User user) throws AccessDeniedException {
+    public PatientResponse updatePatient(Long id, PatientRequest patientRequest, User user) {
         user.checkPermission(PermissionEnum.UPDATE_PATIENT);
         var existingPatient = findPatientById(id);
         var updatedPatient = patientMapper.toPatient(patientRequest);
@@ -80,7 +83,24 @@ class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deletePatient(Long patientId, User user) throws AccessDeniedException {
+    public Page<PatientResponse> getPatients(User user, int page, int size, String sortBy, String direction) {
+        user.checkPermission(PermissionEnum.LIST_PATIENTS);
+        Sort sort = direction.equalsIgnoreCase("desc") ?
+                Sort.by(sortBy).descending() :
+                Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // Assuming your repository returns Patient entities:
+        Page<Patient> patientPage = patientRepository.findAll(pageable);
+
+        // Map to DTO (PatientResponse)
+        return patientPage.map(patientMapper::toPatientResponse);
+    }
+
+
+    @Override
+    public void deletePatient(Long patientId, User user) {
         user.checkPermission(PermissionEnum.DELETE_PATIENT);
         findPatientById(patientId);
         patientRepository.deleteById(patientId);
@@ -98,6 +118,6 @@ class PatientServiceImpl implements PatientService {
 
     private Patient findPatientById(Long patientId) {
         return patientRepository.findById(patientId)
-                .orElseThrow(() -> new EntityNotFoundException("Patient not found with Id " + patientId));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient not found with Id " + patientId));
     }
 }

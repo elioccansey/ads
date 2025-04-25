@@ -2,6 +2,7 @@ package com.eli.ads.user.patient;
 
 import com.eli.ads.user.UserService;
 import com.eli.ads.user.User;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,27 @@ class PatientController {
     private final PatientService patientService;
     private final UserService userService;
 
-    // View all patients - only accessible to users with LIST_PATIENTS authority
+//    // View all patients - only accessible to users with LIST_PATIENTS authority
+//    @PreAuthorize("hasAuthority('LIST_PATIENTS')")
+//    @GetMapping
+//    public ResponseEntity<List<PatientResponse>> displayPatientsSortedByLastName() throws AccessDeniedException {
+//        User user = userService.getConnectedUser();
+//        return ResponseEntity.ok(patientService.displayPatientsSortedByLastName(user));
+//    }
+
     @PreAuthorize("hasAuthority('LIST_PATIENTS')")
     @GetMapping
-    public ResponseEntity<List<PatientResponse>> displayPatientsSortedByLastName() throws AccessDeniedException {
+    public ResponseEntity<Page<PatientResponse>> getPatients(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "lastName") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction
+    ) throws AccessDeniedException {
         User user = userService.getConnectedUser();
-        return ResponseEntity.ok(patientService.displayPatientsSortedByLastName(user));
+        Page<PatientResponse> patients = patientService.getPatients(user, page, size, sortBy, direction);
+        return ResponseEntity.ok(patients);
     }
+
 
     // Get specific patient by ID - only accessible to users with VIEW_PATIENT authority
     @PreAuthorize("hasAuthority('VIEW_PATIENT')")
