@@ -39,29 +39,50 @@ Below is a snapshot of the organized API endpoints exposed by the ADS backend sy
 
 ### 🗺️ Addresses
 - `GET /addresses` - Get all addresses sorted by city
-
+![img.png](screenshots/img.png)
 ### 📅 Appointments
 - `POST /appointments` - Book an appointment
+  - Patient has an unpaid bill, cannot book appointment.
+  ![img_2.png](screenshots/img_2.png)
+  --
+  - Dentist has already 5 appointments this week.
+![img_1.png](screenshots/img_4.png)
+---
 - `GET /appointments/dentist/{id}` - Get appointments by dentist ID
+---
 - `GET /appointments/patient/{id}` - Get appointments by patient ID
+---
 - `DELETE /appointments/{id}` - Cancel an appointment
+---
 - `PUT /appointments/{id}` - Reschedule an appointment
 
 ### 🔐 Auth
 - `POST /auth/register` - Register a new user
+---
 - `POST /auth/authenticate` - Authenticate user and receive JWT
-
+---
 ### 👤 Patients
 - `GET /patients/{id}` - Get patient by ID
+---
 - `POST /patients` - Create a new patient
+
+---
 - `GET /patients/sorted` - Get patients sorted by last name
+---
 - `GET /patients` - Get all patients
+![img_1.png](screenshots/img_1.png)
+---
 - `PUT /patients/{id}` - Update patient
+---
 - `DELETE /patients/{id}` - Delete patient
+---
 - `GET /patients/search` - Search patient
 
 ### 🦷 Dentists
 - `GET /dentists/{id}` - Get dentist by ID
+---
 - `POST /dentists` - Create a new dentist
+---
 - `PUT /dentists/{id}` - Update dentist
+---
 - `DELETE /dentists/{id}` - Delete dentist
