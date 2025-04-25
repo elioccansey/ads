@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: vetchoccans/ads-backend:1.0.14
+    image: vetchoccans/ads-backend:1.0.15
     container_name: ads_backend
     ports:
       - "8081:8080"
